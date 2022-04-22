@@ -1,0 +1,194 @@
+/* .container{
+    padding: 2rem 0;
+
+}
+.containerForm{
+    width: 60%;
+    height: auto;
+    overflow: hidden;
+    top:50px;
+    color: black;
+    background: #ffffff;
+    border-radius: 5px;
+    margin: auto auto;
+    border-width: 1px;
+    border-color: #a4a4a4;
+    vertical-align: text-top;
+    border: 1px solid #a4a4a4;
+    padding-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    /* padding: 2rem 5rem;
+
+}
+
+ 
+.field{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+.field label{
+    margin-bottom: 5px;
+    font-weight: 500;
+} 
+
+.field input{
+    height: 30px;
+    padding-left: 5px;
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+.field select{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #696969;
+}
+.textBox{
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+.textBox label{
+    text-align: center;
+}
+textarea{
+    max-width: 100%;
+    max-height: 120px;
+    font-size: 15px;
+    padding: 5px;
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+.radio{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20%;
+    margin-bottom: 30px ;
+    margin-left: 30px;
+}
+.radio label{
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.radio div{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 5px;
+}  */
+.container, .containerForm{ 
+    /* position: relative; */
+    width: 100%;
+    min-height: 550px;
+    overflow: hidden;
+    top:50px;
+    color: black;
+    background: #ffffff;
+    border-radius: 5px;
+    margin: 0 auto;
+    border-width: 1px;
+    border-color: #a4a4a4;
+    vertical-align: text-top;
+    border: 1px solid #a4a4a4;
+    /* text-align: center; */
+
+}
+.title{
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 1%;
+    color: #fff;
+    background-color: #04AA6D;
+    /* width: 70%; */
+    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.containerForm{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5%;
+    border: none;
+    border: 1px solid;
+}
+.rows, .rowTextbox{
+    display: flex;
+    width: 90%;
+    height: 130px;
+    justify-content: space-between;
+}
+.rowTextbox{
+    margin-bottom: 40px;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin: 0 20px;
+    /* padding: 1%; */
+}
+
+.field label{
+    margin-bottom: 5px;
+    font-weight: 500;
+} 
+
+.field input{
+    height: 30px;
+    padding-left: 5px;
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+.field select{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #696969;
+}
+.textBox{
+    display: flex;
+    flex-direction: column;
+    width: 25%; 
+    margin: 0 20px;
+}
+.textBox label{
+    text-align: center;
+    font-weight: 500;
+}
+textarea{
+    max-width: 100%;
+    max-height: 120px;
+    font-size: 15px;
+    padding: 5px;
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+.radio{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    width: 25%;
+    /* margin-bottom: 40px ; */
+    margin: 0 20px;
+    text-align: center;
+}
+.radio label{
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.radio div{
+    display: flex;
+    /* justify-content: flex-start; */
+    padding-left: 5px;
+}

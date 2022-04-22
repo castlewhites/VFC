@@ -1,0 +1,57 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    border-bottom: 1px solid #a4a4a4;
+    width: 100%;
+}
+.logo{
+    padding: 5px 30px;
+    width: 70px;
+}
+.link{
+    text-decoration: none;
+    padding: 5px;
+    color:black
+}
+.j{
+    display: flex
+}
+.navMenu{
+    display: flex;
+    list-style: none;
+}
+.navMenuItem{
+    margin-right: 20px;
+    line-height: 40px;
+    border-right: 1px solid #a4a4a4;
+    padding-right: 15px;
+    border-radius: 5px;
+}
+.navMenuItem:hover{
+    opacity: 0.6;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-right: 50%;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 20px;
+    color: #a4a4a4;
+    font-weight: 500;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

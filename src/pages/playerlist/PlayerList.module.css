@@ -1,0 +1,36 @@
+.container{
+    padding: 1rem 1rem 3rem 1rem;
+}
+.table{
+
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 5% !important;
+    margin: 0 auto;
+}
+  
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+.table tr:nth-child(even){background-color: #f2f2f2;}
+  
+.table tr:hover {background-color: #ddd;}
+  
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+.link{
+    color: #25415a ;
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: underline;
+    color: #2271b3;
+}

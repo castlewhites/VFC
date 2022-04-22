@@ -1,0 +1,74 @@
+
+.containerLogin{
+    position: relative;
+    width: 400px;
+    min-height: 450px;
+    overflow: hidden;
+    top:50px;
+    color: black;
+    background: #ffffff;
+    border-radius: 20px;
+    text-align: center;
+    margin: auto auto;
+    border-width: 1px;
+    border-color: #a4a4a4;
+    box-shadow: 0 4px 8px 0 #a4a4a4, 0 6px 12px 0 #a4a4a4;
+    vertical-align: text-top;
+}
+.titleLogin{
+    margin-top: 15%;
+    font-size: 2.5rem;
+}
+.inputText, .inputPassword {
+    width: 300px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    margin: auto auto;
+    display: block;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    outline: none;
+}
+.inputText:hover, .inputPassword:hover{
+    border-color: #a4a4a4;
+    box-shadow: 0 4px 8px 0 #a4a4a4, 0 6px 12px 0 #a4a4a4;
+
+}
+.buttonLogin{
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: auto auto;
+    border: none;
+    cursor: pointer;
+    width: 300px;
+    border-radius: 30px;
+    display: block;
+    font-size: 15px;
+    font-weight:600;
+}
+.buttonLogin:hover{
+    opacity: 0.7;
+    color: black;
+}
+.fpsw {
+    display: block;
+    margin-left:55%;
+    margin-top: 5%;
+    margin-bottom: 14%;
+}
+.cna{
+    margin-top:5%;
+    display: block;
+}
+.link{
+    color: #25415a ;
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: underline;
+    color: #2271b3;
+}
+.linkButton{
+    text-decoration: none;
+}
