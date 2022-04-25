@@ -1,11 +1,18 @@
+import React, { useEffect, useState } from "react";
 import  NavBar  from "../../NavBar";
 import styles from "./PlayerList.module.css"
+import { auth, getPatients } from "../../connection/firebase"
 import { Link } from "react-router-dom"
+import { useAuthState } from "react-firebase-hooks/auth";
+import { connect, useDispatch } from 'react-redux'
 
 
-
-
-export function PlayerList(){
+function PlayerList({ patientList }){
+    const dispatch = useDispatch()
+    const [user, loading, error] = useAuthState(auth)
+    useEffect(()=>{
+        getPatients(dispatch)
+    },[])
     return(
         <>
             <header>
@@ -13,33 +20,33 @@ export function PlayerList(){
             </header>
             <main className={styles.container}>        
                 <table className={styles.table}>
-                <tr>
-                   <th>NOMBRE</th> <th>APELLIDO</th> <th>EDAD</th> <th>C.C</th> <th>CORREO</th> <th>CELULAR</th> <th>PESO</th>
-                </tr>
-                <tr>
-                    <td> <Link className={styles.link} to="/PlayerView">Daniel </Link></td><td><Link className={styles.link} to="/PlayerView">Moreno</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">23 Años</Link></td><td><Link className={styles.link} to="/PlayerView">1036683868</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">danimoredia@gmail.com </Link></td><td><Link className={styles.link} to="/PlayerView">3004350491</Link></td>
-                    <td><Link className={styles.link} to="/PlayerView">75Kg</Link> </td>
-                </tr>
-                <tr> 
-                <td> <Link className={styles.link} to="/PlayerView">Daniel </Link></td><td><Link className={styles.link} to="/PlayerView">Moreno</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">23 Años</Link></td><td><Link className={styles.link} to="/PlayerView">1036683868</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">danimoredia@gmail.com </Link></td><td><Link className={styles.link} to="/PlayerView">3004350491</Link></td>
-                    <td><Link className={styles.link} to="/PlayerView">75Kg</Link> </td> 
-                </tr>
-                <tr>
-                <td> <Link className={styles.link} to="/PlayerView">Daniel </Link></td><td><Link className={styles.link} to="/PlayerView">Moreno</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">23 Años</Link></td><td><Link className={styles.link} to="/PlayerView">1036683868</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">danimoredia@gmail.com </Link></td><td><Link className={styles.link} to="/PlayerView">3004350491</Link></td>
-                    <td><Link className={styles.link} to="/PlayerView">75Kg</Link> </td>
-                </tr>
-                <tr>
-                <td> <Link className={styles.link} to="/PlayerView">Daniel </Link></td><td><Link className={styles.link} to="/PlayerView">Moreno</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">23 Años</Link></td><td><Link className={styles.link} to="/PlayerView">1036683868</Link></td>
-                    <td> <Link className={styles.link} to="/PlayerView">danimoredia@gmail.com </Link></td><td><Link className={styles.link} to="/PlayerView">3004350491</Link></td>
-                    <td><Link className={styles.link} to="/PlayerView">75Kg</Link> </td>
-                </tr>
+                    <tr>
+                        <th>NOMBRE COMPLETO</th> <th>EDAD</th> <th>C.C</th> <th>CORREO</th> <th>CELULAR</th> <th>PESO</th>
+                    </tr>
+                    {
+                        patientList.map((patient, index) => {
+                            return (
+                                <tr>
+                                    <td> <Link className={styles.link} to="/PlayerView">{patient.nameP}</Link></td>
+                                    <td> 
+                                        <Link className={styles.link} to="/PlayerView">{patient.age}</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={styles.link} to="/PlayerView">{patient.idDoc}</Link>
+                                    </td>
+                                    <td> 
+                                        <Link className={styles.link} to="/PlayerView">{patient.email}</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={styles.link} to="/PlayerView">{patient.tel}</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={styles.link} to="/PlayerView">{patient.weight}</Link> 
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
                 </table>
             </main>
         </>
@@ -47,3 +54,10 @@ export function PlayerList(){
     
     );
 }
+function mapStateToProps({ patients }) {
+    return {
+        patientList: patients.patientList,
+    }
+}
+
+export default connect(mapStateToProps)(PlayerList)
