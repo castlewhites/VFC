@@ -6,7 +6,7 @@ import { Routes, Route, } from "react-router-dom";
 import PlayerList from "./pages/playerlist/PlayerList";
 import { NewPatient } from "./pages/newpatient/NewPatient"
 import { ClinicHistory } from "./pages/clinichistory/ClinicHistory";
-import { PlayerView } from "./pages/playerview/PlayerView";
+import PlayerView from "./pages/playerview/PlayerView";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,7 +22,7 @@ export function App() {
                 <Route path="/PlayerList" element={<PlayerList/>}></Route>
                 <Route path="/NewPatient" element={<NewPatient/>}></Route>
                 <Route path="/ClinicHistory" element={<ClinicHistory/>}></Route>
-                <Route path="/PlayerView" element={<PlayerView/>}></Route>
+                <Route path="/:id/PlayerView" element={<PlayerView/>}></Route>
             </Routes>  
             <ToastContainer
                 position="top-right"

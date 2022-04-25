@@ -2,8 +2,14 @@ import styles from "./PlayerView.module.css"
 import { Link } from "react-router-dom";
 import  jugador  from "../../img/jugador.png"
 import NavBar from "../../NavBar";
+import { connect, useDispatch } from 'react-redux'
+import {  useParams } from 'react-router-dom'
 
-export function PlayerView(){
+function PlayerView({ patientList }){
+    const params = useParams()
+    const { id } = params
+    console.log(id,patientList);
+    const currentPatient = patientList?.filter((patient => patient.idDoc === id))
     return(
         <>
         <header>
@@ -12,7 +18,7 @@ export function PlayerView(){
         <main>
             <div className={styles.container}>
                     <div className={styles.imgContainer}>
-                    <h3 className={styles.playerName}>Andres Felipe Padilla Loaiza</h3>
+                    <h3 className={styles.playerName}>{currentPatient[0].nameP}</h3>
                     <img src={jugador} alt="jugador"
                     className={styles.player}/>
                     <div className={styles.buttonContainer}>
@@ -22,25 +28,25 @@ export function PlayerView(){
 
                 <ul className={styles.items}>
                     <li className={styles.item}>
-                        <b>EDAD: </b> 26 Años
+                        <b>EDAD: </b> {currentPatient[0].age} Años
                     </li>
                     <li className={styles.item}>
-                        <b>DOCUMENTO DE IDENTIFICACIÓN: </b> CC 1.065.812.488
+                        <b>DOCUMENTO DE IDENTIFICACIÓN: </b>{id}
                     </li>
                     <li className={styles.item}>
-                        <b>BARRIO: </b> San Joaquín
+                        <b>DIRECCION: </b> {currentPatient[0].address}
                     </li>
                     <li className={styles.item}>
-                        <b>CELULAR: </b> 3225132950
+                        <b>CELULAR: </b> {currentPatient[0].tel}
                     </li>
                     <li className={styles.item}>
-                        <b>CORREO: </b> anfe9898@gmail.com
+                        <b>CORREO: </b> {currentPatient[0].email}
                     </li>
                     <li className={styles.item}>
-                        <b>PESO: </b> 76KG
+                        <b>PESO: </b> {currentPatient[0].weight}
                     </li>
                     <li className={styles.item}>
-                        <b>ESTATURA: </b> 1.79CM
+                        <b>ESTATURA: </b>{currentPatient[0].height}
                     </li>
                 </ul>
                 <h2 className={styles.titleHc}>HISTORIA CLINICA</h2>
@@ -248,3 +254,11 @@ export function PlayerView(){
         
     )
 }
+
+function mapStateToProps({ patients }) {
+    return {
+        patientList: patients.patientList,
+    }
+}
+
+export default connect(mapStateToProps)(PlayerView)

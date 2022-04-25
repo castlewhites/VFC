@@ -27,21 +27,21 @@ function PlayerList({ patientList }){
                         patientList.map((patient, index) => {
                             return (
                                 <tr>
-                                    <td> <Link className={styles.link} to="/PlayerView">{patient.nameP}</Link></td>
+                                    <td> <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.nameP}</Link></td>
                                     <td> 
-                                        <Link className={styles.link} to="/PlayerView">{patient.age}</Link>
+                                        <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.age}</Link>
                                     </td>
                                     <td>
-                                        <Link className={styles.link} to="/PlayerView">{patient.idDoc}</Link>
+                                        <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.idDoc}</Link>
                                     </td>
                                     <td> 
-                                        <Link className={styles.link} to="/PlayerView">{patient.email}</Link>
+                                        <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.email}</Link>
                                     </td>
                                     <td>
-                                        <Link className={styles.link} to="/PlayerView">{patient.tel}</Link>
+                                        <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.tel}</Link>
                                     </td>
                                     <td>
-                                        <Link className={styles.link} to="/PlayerView">{patient.weight}</Link> 
+                                        <Link className={styles.link} to={`/${patient.idDoc}/PlayerView`}>{patient.weight}</Link> 
                                     </td>
                                 </tr>
                             )
