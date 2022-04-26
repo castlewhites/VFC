@@ -1,8 +1,26 @@
 /* eslint default-param-last: off */
-import { GET_PATIENTS } from '../constants'
+import { GET_PATIENTS, SET_DOCTOR, SET_CLINICAL, CLEAR_CLINICAL } from '../constants'
+
+const clinicalHistoryInitialState = {
+  allergy: "NA",
+  bloodType: "NA",
+  consultation: "NA",
+  doctor: "NA",
+  idDoc: "NA",
+  illness: "NA",
+  injury: "NA",
+  medicine: "NA",
+  sex: "NA",
+  surgery: "NA",
+  surgeryBool: "NA",
+  tranfusion: "NA",
+  tranfusionReaction: "NA",
+}
 
 export const initialState = {
   patientList: [],
+  doctor: {},
+  clinicalHistoryFireBase: clinicalHistoryInitialState
 }
 
 // eslint-disable-next-line arrow-body-style
@@ -21,6 +39,24 @@ const savedListReducer = (state = initialState, action) => {
       return {
         ...state,
         patientList: payload,
+      }
+    }
+    case SET_DOCTOR: {
+      return {
+        ...state,
+        doctor: payload,
+      }
+    }
+    case SET_CLINICAL: {
+      return {
+        ...state,
+        clinicalHistoryFireBase: payload,
+      }
+    }
+    case CLEAR_CLINICAL: {
+      return {
+        ...state,
+        clinicalHistoryFireBase: clinicalHistoryInitialState
       }
     }
     

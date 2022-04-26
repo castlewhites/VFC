@@ -3,9 +3,11 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { toastMessage } from '../utils/toast';
-import { setPatientList } from '../redux/actions/PatientListActions'
+import { setPatientList, setDoctor, setClinicalHistory, cleanClinicalHistory } from '../redux/actions/PatientListActions'
 import { 
     doc, 
+    getDocs, 
+    where,
     setDoc, 
     arrayUnion, 
     arrayRemove, 
@@ -14,7 +16,6 @@ import {
     query,
     onSnapshot
 } from "firebase/firestore";
-
 const firebaseConfig  = {
     apiKey: "AIzaSyCjOA3VHiltKRDexpnLJguv9clcloQeofM",
     authDomain: "vpfc-4c8ca.firebaseapp.com",
@@ -27,8 +28,6 @@ const fb  = firebase.initializeApp(firebaseConfig);
 const auth = fb.auth();
 const db = fb.firestore();
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-
 const signUpWithEmailAndPassword = async (name, email, password) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password)
@@ -40,7 +39,7 @@ const signUpWithEmailAndPassword = async (name, email, password) => {
         email,
       })
     } catch (err) {
-        toastMessage('error', '!Upss user was not created, plaese check and try again!', 'error_register')
+        toastMessage('error', 'Error al crear usuario, intente de nuevo', 'error_register')
     }
 }
 
@@ -49,34 +48,43 @@ const signInWithEmailAndPassword = async (email, password) => {
       const res = await auth.signInWithEmailAndPassword(email, password)
     } catch (err) {
       console.error(err)
-      toastMessage('error', '!Upss user does not exists, please check and try again!', 'error_auth')
+      toastMessage('error', 'Correo o contraseña erroneos', 'error_auth')
     }
 }
 
-// pop up for google login
-const googleLogin = async () => {
+const getDoctorName = async (id,dispatch) => {
     try {
-      const res = await auth.signInWithPopup(googleProvider)
-      const user = res.user
-      const query = await db
-        .collection("users")
-        .where("uid", "==", user.uid)
-        .get()
-      if (query.docs.length === 0) {
-        await db.collection("users").add({
-          uid: user.uid,
-          name: user.displayName,
-          authProvider: "google",
-          email: user.email,
-        })
-      }
-    } catch (err) {
-        toastMessage('error', '!Upss credentials erros, please check and try again!', 'error_adding_favorite');
+        const userRef = collection(db, "users");
+        const q = query(userRef, where("uid", "==", id));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            dispatch(setDoctor(doc.data()))
+        });
+    } catch (error) {
+        console.log('doctor:', error);
+        toastMessage('error', 'Ups, hubo un error, intente de nuevo.', 'error_adding_favorite')
     }
 }
 
-const addPatient = async (patientInfo) => {
-    console.log('patientInfo:',patientInfo);
+const getclinicalHistory = async (id,dispatch) => {
+    try {
+        const userRef = collection(db, "clinicalHistory");
+        const q = query(userRef, where("idDoc", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.docs.length === 0) {
+            dispatch(cleanClinicalHistory())
+        } else {
+            querySnapshot.forEach((doc) => {
+                dispatch(setClinicalHistory(doc.data()))
+            });
+        }
+    } catch (error) {
+        console.log('clinic:', error);
+        toastMessage('error', 'Ups, hubo un error, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const addPatient = async (patientInfo,navigate) => {
     try {
         const docRef = await setDoc(doc(db, "patients", patientInfo.idDoc), {
             nameP: patientInfo.nameP,
@@ -89,8 +97,36 @@ const addPatient = async (patientInfo) => {
             weight: patientInfo.weight,
             height: patientInfo.height,
         });
+        navigate("/PlayerList")
+        toastMessage('success', 'Paciente añadido correctamente', 'error_adding_favorite')
     } catch (e) {
-      toastMessage('error', 'Upps could not add to favorite, please try again!', 'error_adding_favorite')
+        toastMessage('error', 'Error al agregar paciente, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const addClinicalHistory = async (patinetHistory,navigate) => {
+    console.log('patinetHistory', patinetHistory);
+    try {
+        const docRef = await setDoc(doc(db, "clinicalHistory", patinetHistory.idDoc), {
+            allergy: patinetHistory.allergy,
+            bloodType: patinetHistory.boodType,
+            consultation: patinetHistory.consultation,
+            doctor: patinetHistory.doctor,
+            illness: patinetHistory.illness,
+            injury: patinetHistory.injury,
+            medicine: patinetHistory.medicine,
+            sex: patinetHistory.sex,
+            surgery: patinetHistory.surgery,
+            surgeryBool: patinetHistory.surgeryBool,
+            tranfusion: patinetHistory.tranfusion,
+            tranfusionReaction: patinetHistory.tranfusionReaction,
+            idDoc: patinetHistory.idDoc
+        });
+        navigate(`/${patinetHistory.idDoc}/PlayerView`)
+        toastMessage('success', 'Historia clinica actualizada correctamente', 'error_adding_favorite')
+    } catch (e) {
+        console.log(e);
+        toastMessage('error', 'Error al actualizar historia clinica, intente de nuevo.', 'error_adding_favorite')
     }
 }
 
@@ -141,7 +177,9 @@ export {
     db,
     signUpWithEmailAndPassword,
     signInWithEmailAndPassword,
-    googleLogin,
+    getDoctorName,
+    getclinicalHistory,
+    addClinicalHistory,
     addPatient,
     getPatients,
     updateFavorites,

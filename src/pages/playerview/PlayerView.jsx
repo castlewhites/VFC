@@ -1,15 +1,25 @@
+import React, {  useEffect } from "react";
 import styles from "./PlayerView.module.css"
 import { Link } from "react-router-dom";
 import  jugador  from "../../img/jugador.png"
 import NavBar from "../../NavBar";
 import { connect, useDispatch } from 'react-redux'
+import { auth,  getDoctorName,
+    getclinicalHistory, } from "../../connection/firebase"
+import { useAuthState } from "react-firebase-hooks/auth";
 import {  useParams } from 'react-router-dom'
 
-function PlayerView({ patientList }){
+function PlayerView({ patientList,doctor,clinicalHistoryFireBase }){
     const params = useParams()
+    const [user] = useAuthState(auth)
     const { id } = params
-    console.log(id,patientList);
     const currentPatient = patientList?.filter((patient => patient.idDoc === id))
+    const dispatch = useDispatch()
+    useEffect(()=> {
+        if (user)getDoctorName(user?.uid,dispatch)
+        if(id) getclinicalHistory(id,dispatch)
+    },[])
+    console.log('clinicalHistoryFireBase.',clinicalHistoryFireBase);
     return(
         <>
         <header>
@@ -22,7 +32,7 @@ function PlayerView({ patientList }){
                     <img src={jugador} alt="jugador"
                     className={styles.player}/>
                     <div className={styles.buttonContainer}>
-                        <Link to="/ClinicHistory"><button type="submit" className={styles.button} >Actualizar Historia Clinica</button></Link>
+                        <Link to={`/${id}/ClinicHistory`}><button type="submit" className={styles.button} >Actualizar Historia Clinica</button></Link>
                     </div>
                     </div>
 
@@ -52,31 +62,31 @@ function PlayerView({ patientList }){
                 <h2 className={styles.titleHc}>HISTORIA CLINICA</h2>
                 <ul className={styles.items}>
                     <li className={styles.item}>
-                        <b>DOCTOR: </b> Andrés Felipe Padilla Loaiza
+                        <b>DOCTOR: </b> {doctor.name}
                     </li>
                     <li className={styles.item}>
-                        <b>MOTIVO DE CONSULTA U ORIGEN DE LA LESIÓN: </b> <br /> Lorem ipsum dolor sit ameias
+                        <b>MOTIVO DE CONSULTA U ORIGEN DE LA LESIÓN: </b> <br /> {clinicalHistoryFireBase.consultation}
                     </li>
                     <li className={styles.item}>
-                        <b>DESCRIPCIÓN DE LA LESIÓN: </b> <br /> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia esse recusandae amet debitis provident 
+                        <b>DESCRIPCIÓN DE LA LESIÓN: </b> <br /> {clinicalHistoryFireBase.injury}
                     </li>
                     <li className={styles.item}>
-                        <b>ENFERMEDAD ACTUAL: </b> <br /> No aplica
+                        <b>ENFERMEDAD ACTUAL: </b> <br /> {clinicalHistoryFireBase.illness}
                     </li>
                     <li className={styles.item}>
-                        <b>MEDICAMENTOS EN USO ACTUALMENTE: </b> No aplica
+                        <b>MEDICAMENTOS EN USO ACTUALMENTE: </b> {clinicalHistoryFireBase.medicine}
                     </li>
                     <li className={styles.item}>
-                        <b>ALERGIAS A MEDICAMENTOS: </b> No aplica
+                        <b>ALERGIAS A MEDICAMENTOS: </b> {clinicalHistoryFireBase.allergy}
                     </li>
                     <li className={styles.item}>
-                        <b>GRUPO SANGUINEO: </b> O-
+                        <b>GRUPO SANGUINEO: </b> {clinicalHistoryFireBase.bloodType}
                     </li>
                     <li className={styles.item}>
-                        <b>REACCIÓN A TRANSFUSIONES: </b> Ninguna
+                        <b>REACCIÓN A TRANSFUSIONES: </b> {clinicalHistoryFireBase.tranfusion}
                     </li>
                     <li className={styles.item}>
-                        <b>CIRUGIAS: </b> Ninguna
+                        <b>CIRUGIAS: </b> {clinicalHistoryFireBase.surgeryBool}
                     </li>
                 </ul>
                 <div className={styles.containerFt}>
@@ -258,6 +268,8 @@ function PlayerView({ patientList }){
 function mapStateToProps({ patients }) {
     return {
         patientList: patients.patientList,
+        doctor: patients.doctor,
+        clinicalHistoryFireBase: patients.clinicalHistoryFireBase
     }
 }
 

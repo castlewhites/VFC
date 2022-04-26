@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import  NavBar  from "../../NavBar"
 import styles from "./NewPatient.module.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import draxo from "../../img/draxo.png"
-import { auth, addPatient } from "../../connection/firebase"
+import { addPatient } from "../../connection/firebase"
+
 
 
 export function NewPatient(){
@@ -18,6 +19,11 @@ export function NewPatient(){
         weight: '',
         height: '',
     })
+    const navigate = useNavigate ();
+
+    const handleAddPatient = () => {
+        addPatient(newPatient,navigate)
+    }
 
     return(
         <>
@@ -35,7 +41,7 @@ export function NewPatient(){
                         className={styles.inputName} 
                         placeholder="Nombre del paciente" 
                         name="nameP"
-                         onChange={({target})=>setNewPatient({...newPatient, [target.name]: target.value})}
+                        onChange={({target})=>setNewPatient({...newPatient, [target.name]: target.value})}
                     />
                 </div>
                 <div>
@@ -50,9 +56,9 @@ export function NewPatient(){
                         type="date"  
                         className={styles.input} 
                         placeholder="" 
-                        name="bday" 
+                        name="bdate" 
                         required
-                         onChange={({target})=>setNewPatient({...newPatient, [target.name]: target.value})}
+                        onChange={({target})=>setNewPatient({...newPatient, [target.name]: target.value})}
                     />
                     
                 </div>
@@ -105,7 +111,7 @@ export function NewPatient(){
                     />
                 </div>
                 <div>
-                    <button type="button" className={styles.button} onClick={()=>addPatient(newPatient)}>
+                    <button type="button" className={styles.button} onClick={()=>handleAddPatient()}>
                         Envíar
                     </button>
                 </div>

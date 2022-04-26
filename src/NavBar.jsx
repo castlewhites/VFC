@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from "./NavBar.module.css"
 import draxo from ".//img/draxo.png"
-import { Link } from "react-router-dom";
+import { Link, useLocation  } from "react-router-dom";
+import { logOut } from "./connection/firebase";
 
 
 // como componente funcional
@@ -24,7 +25,7 @@ export default function NavBar(){
                     <Link className={styles.link} to="/NewPatient">Nuevo Paciente</Link>
                 </li>  
                 <li className={styles.navMenuItem}>
-                    <Link className={styles.link} to="/">Cerrar Sesión</Link>
+                    <Link className={styles.link} to="/" onClick={()=> logOut()}>Cerrar Sesión</Link>
                 </li>  
             </ul>
         </nav>

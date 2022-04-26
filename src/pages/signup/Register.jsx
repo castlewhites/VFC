@@ -43,7 +43,7 @@ export function Register(){
             />
             <input type="email"  
                 className={styles.inputEmail} 
-                placeholder="Email" name="email" 
+                placeholder="Correo" name="email" 
                 onChange={({target})=>setEmail(target.value)} 
                 required 
             />
