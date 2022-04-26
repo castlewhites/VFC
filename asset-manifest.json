@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/castlewhites/VFC/static/css/main.1a2f5f98.css",
-    "main.js": "/castlewhites/VFC/static/js/main.c6e7b884.js",
-    "static/media/draxo.png": "/castlewhites/VFC/static/media/draxo.12302f027fd0497ac41f.png",
-    "static/media/jugador.png": "/castlewhites/VFC/static/media/jugador.79ba998751efccd4e1af.png",
-    "index.html": "/castlewhites/VFC/index.html",
-    "main.1a2f5f98.css.map": "/castlewhites/VFC/static/css/main.1a2f5f98.css.map",
-    "main.c6e7b884.js.map": "/castlewhites/VFC/static/js/main.c6e7b884.js.map"
+    "main.css": "/VFC/static/css/main.1a2f5f98.css",
+    "main.js": "/VFC/static/js/main.552a324e.js",
+    "static/media/draxo.png": "/VFC/static/media/draxo.12302f027fd0497ac41f.png",
+    "static/media/jugador.png": "/VFC/static/media/jugador.79ba998751efccd4e1af.png",
+    "index.html": "/VFC/index.html",
+    "main.1a2f5f98.css.map": "/VFC/static/css/main.1a2f5f98.css.map",
+    "main.552a324e.js.map": "/VFC/static/js/main.552a324e.js.map"
   },
   "entrypoints": [
     "static/css/main.1a2f5f98.css",
-    "static/js/main.c6e7b884.js"
+    "static/js/main.552a324e.js"
   ]
 }
