@@ -1,12 +1,12 @@
-import { GET_PATIENTS, SET_DOCTOR, SET_CLINICAL, CLEAR_CLINICAL } from '../constants'
+import { GET_PATIENTS, SET_USER, SET_CLINICAL, CLEAR_CLINICAL } from '../constants'
 
 export const setPatientList = (payload) => ({
   type: GET_PATIENTS,
   payload,
 })
 
-export const setDoctor = (payload) => ({
-  type: SET_DOCTOR,
+export const setUser = (payload) => ({
+  type: SET_USER,
   payload,
 })
 

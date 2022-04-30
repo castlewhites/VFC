@@ -34,3 +34,9 @@
     text-decoration: underline;
     color: #2271b3;
 }
+
+.no_players {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+}

@@ -2,12 +2,13 @@ import React, { useState } from "react"
 import  NavBar  from "../../NavBar"
 import styles from "./NewPatient.module.css"
 import { Link, useNavigate } from "react-router-dom"
-import draxo from "../../img/draxo.png"
+import vfc from "../../img/vfc.png"
 import { addPatient } from "../../connection/firebase"
+import { connect } from 'react-redux'
 
 
 
-export function NewPatient(){
+function NewPatient({ userName }){
     const [newPatient, setNewPatient] = useState({
         nameP: '',
         age: '',
@@ -18,12 +19,14 @@ export function NewPatient(){
         tel: '',
         weight: '',
         height: '',
+        inCharge: userName.name
     })
     const navigate = useNavigate ();
 
     const handleAddPatient = () => {
         addPatient(newPatient,navigate)
     }
+    console.log('userName',userName);
 
     return(
         <>
@@ -32,7 +35,7 @@ export function NewPatient(){
         </header>
         <div className={styles.container}>
             <form className={styles.containerForm}>
-                <img src={draxo} alt="logo"
+                <img src={vfc} alt="logo"
                     className={styles.logo}/>
                 <h2 className={styles.titleRegister}>Nuevo Paciente</h2>
                 <div>
@@ -123,3 +126,10 @@ export function NewPatient(){
         </>
     )
 }
+function mapStateToProps({ patients }) {
+    return {
+        userName: patients.userName,
+    }
+}
+
+export default connect(mapStateToProps)(NewPatient)

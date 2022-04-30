@@ -54,12 +54,14 @@
 }
 .items{
     list-style: none;
-    display:inline-block;
-    height: 200px;
-    max-width: 50%;
+    width: 850px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    
 }
 .item{
-
+    width: 250px;
     margin-bottom: 10px;
     padding: 10px;
 }

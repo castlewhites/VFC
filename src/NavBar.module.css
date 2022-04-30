@@ -1,6 +1,7 @@
 .nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
     border-bottom: 1px solid #a4a4a4;
     width: 100%;
@@ -15,7 +16,15 @@
     color:black
 }
 .j{
-    display: flex
+    display: flex;
+    align-items: center;
+}
+.nav_user {
+    width: 120px;
+    padding: 5px;
+    color: #fff;
+    background-color: #04AA6D;
+    border-radius: 3px;
 }
 .navMenu{
     display: flex;
@@ -34,7 +43,6 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    margin-right: 50%;
 }
 
 .tooltip .tooltiptext {

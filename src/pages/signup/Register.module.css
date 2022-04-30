@@ -29,6 +29,15 @@
     margin-bottom: 10px;
     outline: none;
 }
+.area{
+    width: 340px;
+    padding: 12px 10px;
+    border-radius: 30px;
+    margin: 3px auto;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    outline: none;
+}
 .inputText:hover, .inputPassword:hover, .inputEmail:hover{
     border-color: #a4a4a4;
     box-shadow: 0 4px 8px 0 #a4a4a4, 0 6px 12px 0 #a4a4a4;

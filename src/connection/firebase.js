@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { toastMessage } from '../utils/toast';
-import { setPatientList, setDoctor, setClinicalHistory, cleanClinicalHistory } from '../redux/actions/PatientListActions'
+import { setPatientList, setUser, setClinicalHistory, cleanClinicalHistory } from '../redux/actions/PatientListActions'
 import { 
     doc, 
     getDocs, 
@@ -28,18 +28,20 @@ const fb  = firebase.initializeApp(firebaseConfig);
 const auth = fb.auth();
 const db = fb.firestore();
 
-const signUpWithEmailAndPassword = async (name, email, password) => {
+const signUpWithEmailAndPassword = async (name, profesion, email, password) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password)
       const user = res.user
       await db.collection("users").add({
         uid: user.uid,
         name,
+        profesion,
         authProvider: "local",
         email,
       })
     } catch (err) {
-        toastMessage('error', 'Error al crear usuario, intente de nuevo', 'error_register')
+        console.log(err);
+        toastMessage('error', 'Error al crear usuario, posiblemente el usuario ya exista, intente de nuevo', 'error_register')
     }
 }
 
@@ -52,13 +54,13 @@ const signInWithEmailAndPassword = async (email, password) => {
     }
 }
 
-const getDoctorName = async (id,dispatch) => {
+const getUserName = async (id,dispatch) => {
     try {
         const userRef = collection(db, "users");
         const q = query(userRef, where("uid", "==", id));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            dispatch(setDoctor(doc.data()))
+            dispatch(setUser(doc.data()))
         });
     } catch (error) {
         console.log('doctor:', error);
@@ -96,6 +98,7 @@ const addPatient = async (patientInfo,navigate) => {
             tel: patientInfo.tel,
             weight: patientInfo.weight,
             height: patientInfo.height,
+            inCharge: patientInfo.inCharge
         });
         navigate("/PlayerList")
         toastMessage('success', 'Paciente añadido correctamente', 'error_adding_favorite')
@@ -177,7 +180,7 @@ export {
     db,
     signUpWithEmailAndPassword,
     signInWithEmailAndPassword,
-    getDoctorName,
+    getUserName,
     getclinicalHistory,
     addClinicalHistory,
     addPatient,

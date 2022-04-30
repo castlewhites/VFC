@@ -4,7 +4,7 @@ import { Register } from "./pages/signup/Register";
 import { NewPassword } from "./pages/newpassword/NewPassword";
 import { Routes, Route, } from "react-router-dom";
 import PlayerList from "./pages/playerlist/PlayerList";
-import { NewPatient } from "./pages/newpatient/NewPatient"
+import NewPatient from "./pages/newpatient/NewPatient"
 import ClinicHistory from "./pages/clinichistory/ClinicHistory";
 import PlayerView from "./pages/playerview/PlayerView";
 import { ToastContainer } from 'react-toastify';

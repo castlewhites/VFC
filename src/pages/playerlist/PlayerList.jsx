@@ -13,11 +13,13 @@ function PlayerList({ patientList }){
     useEffect(()=>{
         getPatients(dispatch)
     },[])
+    
     return(
         <>
             <header>
                 <NavBar/>   
             </header>
+            
             <main className={styles.container}>        
                 <table className={styles.table}>
                     <tr>
@@ -48,6 +50,7 @@ function PlayerList({ patientList }){
                         })
                     }
                 </table>
+                {patientList.length <= 0 &&  <h1 className={styles.no_players}>Aun no existen registro de jugadores</h1>}
             </main>
         </>
 
