@@ -18,11 +18,14 @@
 }
 .buttonContainer{
     margin-bottom: 5%;
+    margin: 0 auto;
 }
+
 .button{
     border-radius: 5px;
     padding: 6px;
     border: 1px solid #a4a4a4;
+
 }
 .button:hover{
     background-color: #9b9b9b;
@@ -34,6 +37,9 @@
     margin-bottom: 35px;
     width: 100%;
     margin: auto;
+}
+.buttonCenter{
+    text-align: center;
 }
 .playerName{
     text-align: center;
@@ -79,7 +85,7 @@
 }
 .titleFe{
     text-align: center;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
 }
 .containerForm{
     width: 100%;

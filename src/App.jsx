@@ -2,6 +2,7 @@
 import { Login } from "./pages/login/Login"
 import { Register } from "./pages/signup/Register";
 import { NewPassword } from "./pages/newpassword/NewPassword";
+import  Physiotherapy  from "./pages/clinichistory/physiotherapy";
 import { Routes, Route, } from "react-router-dom";
 import PlayerList from "./pages/playerlist/PlayerList";
 import NewPatient from "./pages/newpatient/NewPatient"
@@ -10,6 +11,7 @@ import Therapy from "./pages/therapy/Therapy";
 import PlayerView from "./pages/playerview/PlayerView";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PhysicalExploration from "./pages/clinichistory/physicalExploration";
 
 
 
@@ -25,6 +27,8 @@ export function App() {
                 <Route path="/:id/Therapy" element={<Therapy/>}></Route>
                 <Route path="/:id/ClinicHistory" element={<ClinicHistory/>}></Route>
                 <Route path="/:id/PlayerView" element={<PlayerView/>}></Route>
+                <Route path="/Physiotherapy" element={<Physiotherapy/>}></Route>
+                <Route path="/PhysicalExploration" element={<PhysicalExploration/>}></Route>
             </Routes>  
             <ToastContainer
                 position="top-right"

@@ -102,167 +102,94 @@ function PlayerView({ patientList, clinicalHistoryFireBase, userName }) {
                         </li>
                     </ul>
                     <div className={styles.containerFt}>
+                        <div className={styles.buttonCenter}>
                         <h2 className={styles.titleFt}>FISIOTERAPIA</h2>
                         <h3 className={styles.titleFe}>FORMATO DE EVALUACIÓN DE LESIONES VFC</h3>
                         {userName.profesion === "therapist" && 
                             <div className={styles.buttonContainer}>
-                                <Link to={`/${id}/therapy`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
+                                <Link to={`/Physiotherapy`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
                             </div>
-                        }
-                        <form className={styles.containerForm}>
-                            <div className={styles.rows}>
-                                <div className={styles.field}>
-                                    <label for="dateI">Fecha de ingreso: </label>
-                                    <input type="date" name="dateI" required />
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="dateE">Fecha de egreso: </label>
-                                    <input type="date" name="dateE" required />
-                                </div>
+                        }  
+                        </div> 
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                <b>FECHA DE INGRESO: </b> 2/05/2022
+                            </li>
+                            <li className={styles.item}>
+                                <b>FECHA DE INGRESO: </b> 10/05/2022
+                            </li>
+                            <li className={styles.item}>
+                                <b>REPORTE DE LESIÓN: </b> Si
+                            </li>
+                           
+                        </ul>
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                <b>FECHA DE LESIÓN: </b> 2/05/2022
+                            </li>
+                            <li className={styles.item}>
+                                <b>USO DE ORTESIS: </b> Si
+                            </li>
+                            <li className={styles.item}>
+                                <b>QUÉ ORTESIS: Rodillera </b> 
+                            </li>       
+                        </ul>    
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                    <b>DIAGNOSTICO MEDICO: </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est totam repellat exercitationem ipsam nisi iste, 
+                            </li>
+                            <li className={styles.item}>
+                                <b>ANTECEDENTES: </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, accusantium.
+                            </li>
+                        </ul>    
+                        <div className={styles.buttonCenter}>              
+                            <h2 className={styles.titleFt}>EXPLORACIÓN FISÍCA</h2>
+                            <div className={styles.buttonContainer}>
+                                    <Link to={`/PhysicalExploration`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
                             </div>
-                            <div className={styles.rows}>
-                                <div className={styles.radio}>
-                                    <label for="injury">Reporte de lesión: </label>
-                                    <div>
-                                        <input type="radio" name="injury" value="si" /> Si
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="injury" value="no" /> No
-                                    </div>
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="dateL">Fecha de lesión: </label>
-                                    <input type="date" name="dateL" required />
-                                </div>
-                                <div className={styles.radio}>
-                                    <label for="ortesis"> Uso de Ortesis: </label>
-                                    <div>
-                                        <input type="radio" name="ortesis" value="si" /> Si
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="ortesis" value="no" /> No
-                                    </div>
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="ortesis1">¿Cuál ortesis? </label>
-                                    <input type="text" name="ortesis1" />
-                                </div>
-
-
-                            </div>
-                            <div className={styles.rows}>
-
-                                <div className={styles.textBox}>
-                                    <label for="dignostic"> Diagnostico medico: </label>
-                                    <textarea name="diagnostic" cols="30" rows="3"></textarea>
-                                </div>
-                                <div className={styles.textBox}>
-                                    <label for="historyInjuries"> Antecedentes: </label>
-                                    <textarea name="historyInjuries" cols="30" rows="3"></textarea>
-                                </div>
-                            </div>
-                        </form>
-                        <h2 className={styles.titleFt}>EXPLORACIÓN FISÍCA</h2>
-                        <form className={styles.containerForm}>
-                            <div className={styles.rows}>
-                                <div className={styles.field}>
-                                    <label for="fc">Signos vitales: </label>
-                                    <input type="text" placeholder="FC:" name="fc" />
-                                    <label for="fr"></label>
-                                    <input type="text" placeholder="FR:" name="fr" />
-                                    <label for="ta"></label>
-                                    <input type="text" placeholder="TA:" name="ta" />
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="talla">Antropometría: </label>
-                                    <input type="text" placeholder="Talla:" name="talla" />
-                                    <label for="peso"></label>
-                                    <input type="text" placeholder="Peso:" name="pesa" />
-                                    <label for="imc"></label>
-                                    <input type="text" placeholder="IMC:" name="ta" />
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="prueba">Flexibilidad (MMSS): </label>
-                                    <input type="text" placeholder="Prueba" name="prueba" />
-                                    <label for="derecha"></label>
-                                    <input type="text" placeholder="Derecha:" name="derecha" />
-                                    <label for="izquierda"></label>
-                                    <input type="text" placeholder="Izquierda:" name="izquierda" />
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="prueba">Flexibilidad (MMII): </label>
-                                    <input type="text" placeholder="Prueba" name="prueba" />
-                                    <label for="derecha"></label>
-                                    <input type="text" placeholder="Derecha:" name="derecha" />
-                                    <label for="izquierda"></label>
-                                    <input type="text" placeholder="Izquierda:" name="izquierda" />
-                                </div>
-                            </div>
-                            <div className={styles.rows}>
-                                <div className={styles.radio}>
-                                    <label for="pain"> Dolor: </label>
-                                    <div>
-                                        <input type="radio" name="pain" value="si" /> Si
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="pain" value="no" /> No
-                                    </div>
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="painScale">Escala de dolor (1 - 10)</label>
-                                    <input type="number" name="painScale" min="1" max="10" />
-                                </div>
-                                <div className={styles.radio}>
-                                    <label for="edema"> Edema: </label>
-                                    <div>
-                                        <input type="radio" name="edema" value="si" /> Si
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="edema" value="no" /> No
-                                    </div>
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="place">Lugar</label>
-                                    <input type="text" name="place" />
-                                </div>
-
-                                <div className={styles.radio}>
-                                    <label for="fovea"> Fóvea </label>
-                                    <div>
-                                        <input type="radio" name="fovea" value="si" /> Si
-                                    </div>
-                                    <div>
-                                        <input type="radio" name="edema" value="no" /> No
-                                    </div>
-                                </div>
-                                <div className={styles.field}>
-                                    <label for="sexo">Perímetro: </label>
-                                    <select>
-                                        <option selected disabled value="X" name="sexo">Seleccione una Opción</option>
-                                        <option value="izquierdo" name="fovea">Izquierdo</option>
-                                        <option value="derecho" name="fovea">Derecho</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div className={styles.rowsT}>
-                                <div className={styles.textBox}>
-                                    <label for="goniometria"> Goniometría: </label>
-                                    <textarea name="goniometria" cols="30" rows="3"></textarea>
-                                </div>
-                                <div className={styles.textBox}>
-                                    <label for="marcha"> Marcha: </label>
-                                    <textarea name="marcha" cols="30" rows="3"></textarea>
-                                </div>
-
-
-                            </div>
-
-
-
-
-                        </form>
-
+                        </div>
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                <b>SIGNOS VITALES: </b> <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                            </li>
+                            <li className={styles.item}>
+                                <b>ANTROPOMETRÍA: </b> <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                            </li>
+                            <li className={styles.item}>
+                                <b>FLEXIBILIDAD </b>(MMSS) :  <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                            </li>
+                            <li className={styles.item}>
+                                <b>FLEXIBILIDAD </b>(MMII) :  <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                            </li>
+                        </ul> 
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                <b>DOLOR:</b> Si
+                            </li>
+                            <li className={styles.item}>
+                                <b>ESCALA DE DOLOR:</b> 7
+                            </li>
+                            <li className={styles.item}>
+                                <b>EDEMA:</b> Si
+                            </li>
+                            <li className={styles.item}>
+                                <b>LUGAR:</b> Tobillo
+                            </li>
+                            <li className={styles.item}>
+                                <b>FÓVEA:</b> Si
+                            </li>
+                            <li className={styles.item}>
+                                <b>PERIMETRO:</b> Izquierdo
+                            </li>
+                        </ul>   
+                        <ul className={styles.items}>
+                            <li className={styles.item}>
+                                <b>GONIOMETRÍA:</b> Lorem ipsum, dolor sit amet consectetur adipisicing.
+                            </li>
+                            <li className={styles.item}>
+                                <b>MARCHA:</b> Lorem ipsum, dolor sit amet consectetur adipisicing.
+                            </li>
+                        </ul>                 
                     </div>
                 </div>
 
