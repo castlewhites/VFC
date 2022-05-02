@@ -104,7 +104,11 @@ function PlayerView({ patientList, clinicalHistoryFireBase, userName }) {
                     <div className={styles.containerFt}>
                         <h2 className={styles.titleFt}>FISIOTERAPIA</h2>
                         <h3 className={styles.titleFe}>FORMATO DE EVALUACIÓN DE LESIONES VFC</h3>
-
+                        {userName.profesion === "therapist" && 
+                            <div className={styles.buttonContainer}>
+                                <Link to={`/${id}/therapy`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
+                            </div>
+                        }
                         <form className={styles.containerForm}>
                             <div className={styles.rows}>
                                 <div className={styles.field}>
@@ -273,6 +277,7 @@ function mapStateToProps({ patients }) {
     return {
         patientList: patients.patientList,
         clinicalHistoryFireBase: patients.clinicalHistoryFireBase,
+        therapy: patients.therapy,
         userName: patients.userName,
     }
 }

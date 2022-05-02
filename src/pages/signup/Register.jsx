@@ -44,12 +44,12 @@ export function Register() {
       />
       <select 
         className={styles.area} 
-        name="area"
+        name="profesion"
         onChange={({ target }) => setProfesion(target.value)}
       >
         <option selected disabled value="X" name="sexo">Profesión</option>
         <option value="doctor">Doctor</option>
-        <option value="terapist">Fisioterapeuta</option>
+        <option value="therapist">Fisioterapeuta</option>
         <option value="prepare">Preparador fisico</option>
       </select>
       <input type="email"

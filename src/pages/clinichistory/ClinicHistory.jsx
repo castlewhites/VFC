@@ -7,7 +7,7 @@ import {  useParams } from 'react-router-dom'
 import { addClinicalHistory } from "../../connection/firebase"
 
 
-function ClinicHistory({ patientList,doctor }){
+function ClinicHistory({ patientList,userName }){
     const [clinicHistoryLocal, setClinicHistoryLocal] = useState({})
     const navigate = useNavigate()
     const params = useParams()
@@ -15,7 +15,7 @@ function ClinicHistory({ patientList,doctor }){
     const currentPatient = patientList?.filter((patient => patient.idDoc === id))
     const historyPatient = currentPatient[0]
     const sendClinicalHistory = () => {
-        addClinicalHistory({...clinicHistoryLocal, doctor: doctor.name, idDoc: id},navigate)
+        addClinicalHistory({...clinicHistoryLocal, doctor: userName.name, idDoc: id},navigate)
     }
 
     return(
@@ -79,7 +79,7 @@ function ClinicHistory({ patientList,doctor }){
                         </div>
                         <div className={styles.field}>
                             <label for="tipoSangre">Grupo sanguíneo: </label>
-                            <select name="boodType" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}>
+                            <select name="bloodType" onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}>
                                 <option selected disabled value="X" name="tipoSangre">Seleccione una Opción</option>
                                 <option value="o-" name="tipoSangre">O-</option>
                                 <option value="o+" name="tipoSangre">O+</option>
@@ -121,7 +121,7 @@ function ClinicHistory({ patientList,doctor }){
                         
                         <div className={styles.field}>
                             <label for="doctor">Doctor responsable:</label>
-                            <input type="text" name="doctor" value={doctor.name} onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/>
+                            <input type="text" name="doctor" value={userName.name} onChange={({target})=>setClinicHistoryLocal({...clinicHistoryLocal, [target.name]: target.value})}/>
                         </div>      
                     </div>
                 </form>
@@ -137,7 +137,7 @@ function ClinicHistory({ patientList,doctor }){
 function mapStateToProps({ patients }) {
     return {
         patientList: patients.patientList,
-        doctor: patients.doctor
+        userName: patients.userName
     }
 }
 

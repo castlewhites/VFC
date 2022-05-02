@@ -108,11 +108,10 @@ const addPatient = async (patientInfo,navigate) => {
 }
 
 const addClinicalHistory = async (patinetHistory,navigate) => {
-    console.log('patinetHistory', patinetHistory);
     try {
         const docRef = await setDoc(doc(db, "clinicalHistory", patinetHistory.idDoc), {
             allergy: patinetHistory.allergy,
-            bloodType: patinetHistory.boodType,
+            bloodType: patinetHistory.bloodType,
             consultation: patinetHistory.consultation,
             doctor: patinetHistory.doctor,
             illness: patinetHistory.illness,
@@ -127,6 +126,27 @@ const addClinicalHistory = async (patinetHistory,navigate) => {
         });
         navigate(`/${patinetHistory.idDoc}/PlayerView`)
         toastMessage('success', 'Historia clinica actualizada correctamente', 'error_adding_favorite')
+    } catch (e) {
+        console.log(e);
+        toastMessage('error', 'Error al actualizar historia clinica, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const addTherapy = async (patinettherapy,navigate) => {
+    console.log('patinettherapy', patinettherapy);
+    try {
+        const docRef = await setDoc(doc(db, "clinicalHistory", patinettherapy.idDoc), {
+            inDate: patinettherapy.inDate,
+            outDate: patinettherapy.outDate,
+            injuryBool: patinettherapy.injuryBool,
+            injuryDate: patinettherapy.injuryDate,
+            orthesisBool: patinettherapy.orthesisBool,
+            orthesis: patinettherapy.orthesis,
+            diagnosis: patinettherapy.diagnosis,
+            record: patinettherapy.record,
+            idDoc: patinettherapy.idDoc
+        });
+        toastMessage('success', 'Datos actualizados correctamente', 'error_adding_favorite')
     } catch (e) {
         console.log(e);
         toastMessage('error', 'Error al actualizar historia clinica, intente de nuevo.', 'error_adding_favorite')
@@ -183,6 +203,7 @@ export {
     getUserName,
     getclinicalHistory,
     addClinicalHistory,
+    addTherapy,
     addPatient,
     getPatients,
     updateFavorites,
