@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import styles from "./NavBar.module.css"
 import vfc from "./img/vfc.png"
-import { Link, useLocation  } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import { connect, useDispatch } from 'react-redux'
 import {
     auth,
@@ -14,7 +14,7 @@ import { logOut } from "./connection/firebase";
 // como componente funcional
 function NavBar({ userName }){
     const [user] = useAuthState(auth)
-    
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
         if (user) getUserName(user?.uid, dispatch)
@@ -37,8 +37,11 @@ function NavBar({ userName }){
                 <li className={styles.navMenuItem}>
                     <Link className={styles.link} to="/NewPatient">Nuevo Paciente</Link>
                 </li>  
-                <li className={styles.navMenuItem}>
-                    <Link className={styles.link} to="/" onClick={()=> logOut()}>Cerrar Sesión</Link>
+                <li className={styles.navMenuItem} >
+                    <Link className={styles.link} to="/" onClick={()=> {
+                        logOut()
+                        navigate("/")
+                    }}>Cerrar Sesión</Link>
                 </li>  
             </ul>
         </nav>

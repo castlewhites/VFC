@@ -1,7 +1,7 @@
-import React, {  useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./ClinicHistory.module.css"
 import NavBar from "../../NavBar"
-import { connect, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import {  useParams } from 'react-router-dom'
 import { addClinicalHistory } from "../../connection/firebase"

@@ -1,7 +1,6 @@
 
 import { Login } from "./pages/login/Login"
 import { Register } from "./pages/signup/Register";
-import { NewPassword } from "./pages/newpassword/NewPassword";
 import  Physiotherapy  from "./pages/clinichistory/physiotherapy";
 import { Routes, Route, } from "react-router-dom";
 import PlayerList from "./pages/playerlist/PlayerList";
@@ -21,14 +20,13 @@ export function App() {
             <Routes>
                 <Route path="/" element={<Login/>}></Route>
                 <Route path="/Register" element={<Register/>}></Route>
-                <Route path="/NewPassword" element={<NewPassword/>}></Route>
                 <Route path="/PlayerList" element={<PlayerList/>}></Route>
                 <Route path="/NewPatient" element={<NewPatient/>}></Route>
                 <Route path="/:id/Therapy" element={<Therapy/>}></Route>
                 <Route path="/:id/ClinicHistory" element={<ClinicHistory/>}></Route>
                 <Route path="/:id/PlayerView" element={<PlayerView/>}></Route>
-                <Route path="/Physiotherapy" element={<Physiotherapy/>}></Route>
-                <Route path="/PhysicalExploration" element={<PhysicalExploration/>}></Route>
+                <Route path="/:id/Physiotherapy" element={<Physiotherapy/>}></Route>
+                <Route path="/:id/PhysicalExploration" element={<PhysicalExploration/>}></Route>
             </Routes>  
             <ToastContainer
                 position="top-right"

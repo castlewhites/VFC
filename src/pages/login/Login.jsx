@@ -10,7 +10,6 @@ export function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, error] = useAuthState(auth);
-    console.log('user:',user);
     useEffect(() => {
         if (loading) {
           return
@@ -52,9 +51,6 @@ export function Login(){
                         onChange={(e)=>setPassword(e.target.value)}
                     />      
                 </div>
-                    <span className={styles.fpsw}>
-                        <Link className={styles.link} to="/NewPassword">Nueva Contraseña</Link>
-                    </span>
                 <div>
                     <div className={styles.linkButton}>
                         <button type="button" className={styles.buttonLogin} onClick={()=>handleLogin()}>

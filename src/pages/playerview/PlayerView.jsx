@@ -6,20 +6,26 @@ import NavBar from "../../NavBar";
 import { connect, useDispatch } from 'react-redux'
 import {
     getclinicalHistory,
+    getTherapy,
+    getPrepare
 } from "../../connection/firebase"
 
 import { useParams } from 'react-router-dom'
 
-function PlayerView({ patientList, clinicalHistoryFireBase, userName }) {
+function PlayerView({ patientList, clinicalHistoryFireBase, therapy, prepare, userName }) {
     const params = useParams()
     
     const { id } = params
     const currentPatient = patientList?.filter((patient => patient.idDoc === id))
     const dispatch = useDispatch()
     useEffect(() => {
-        if (id) getclinicalHistory(id, dispatch)
+        if (id) {
+            getclinicalHistory(id, dispatch)
+            getTherapy(id,dispatch)
+            getPrepare(id,dispatch)
+        }
     }, [])
-    console.log('clinicalHistoryFireBase?.', userName, currentPatient);
+    console.log(prepare);
     return (
         <>
             <header>
@@ -29,8 +35,6 @@ function PlayerView({ patientList, clinicalHistoryFireBase, userName }) {
                 <div className={styles.container}>
                     <div className={styles.imgContainer}>
                         <h3 className={styles.playerName}>{currentPatient[0].nameP}</h3>
-                        <img src={jugador} alt="jugador"
-                            className={styles.player} />
                        {userName.profesion === "doctor" && 
                             <div className={styles.buttonContainer}>
                                 <Link to={`/${id}/ClinicHistory`}><button type="submit" className={styles.button} >Actualizar Historia Clinica</button></Link>
@@ -107,87 +111,106 @@ function PlayerView({ patientList, clinicalHistoryFireBase, userName }) {
                         <h3 className={styles.titleFe}>FORMATO DE EVALUACIÓN DE LESIONES VFC</h3>
                         {userName.profesion === "therapist" && 
                             <div className={styles.buttonContainer}>
-                                <Link to={`/Physiotherapy`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
+                                <Link to={`/${id}/Physiotherapy`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
                             </div>
                         }  
                         </div> 
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                <b>FECHA DE INGRESO: </b> 2/05/2022
+                                <b>FECHA DE INGRESO: </b> {therapy.inDate}
                             </li>
                             <li className={styles.item}>
-                                <b>FECHA DE INGRESO: </b> 10/05/2022
+                                <b>FECHA DE ENGRESO: </b> {therapy.outDate}
                             </li>
                             <li className={styles.item}>
-                                <b>REPORTE DE LESIÓN: </b> Si
+                                <b>REPORTE DE LESIÓN: </b> {therapy.injuryBool}
                             </li>
                            
                         </ul>
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                <b>FECHA DE LESIÓN: </b> 2/05/2022
+                                <b>FECHA DE LESIÓN: </b> {therapy.injuryDate}
                             </li>
                             <li className={styles.item}>
-                                <b>USO DE ORTESIS: </b> Si
+                                <b>USO DE ORTESIS: </b> {therapy.orthesisBool}
                             </li>
                             <li className={styles.item}>
-                                <b>QUÉ ORTESIS: Rodillera </b> 
+                                <b>QUÉ ORTESIS:</b> {therapy.orthesis}
                             </li>       
                         </ul>    
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                    <b>DIAGNOSTICO MEDICO: </b> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est totam repellat exercitationem ipsam nisi iste, 
+                                <b>DIAGNOSTICO FISIOTERAPEUTICO: </b> <br/> {therapy.diagnosis}
                             </li>
                             <li className={styles.item}>
-                                <b>ANTECEDENTES: </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, accusantium.
+                                <b>ANTECEDENTES: </b> <br/> {therapy.record}
                             </li>
                         </ul>    
                         <div className={styles.buttonCenter}>              
                             <h2 className={styles.titleFt}>EXPLORACIÓN FISÍCA</h2>
-                            <div className={styles.buttonContainer}>
-                                    <Link to={`/PhysicalExploration`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
-                            </div>
+                            {userName.profesion === "therapist" && 
+                                <div className={styles.buttonContainer}>
+                                    <Link to={`/${id}/PhysicalExploration`}><button type="submit" className={styles.button} >Actualizar Datos</button></Link>
+                                </div>
+                            }
                         </div>
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                <b>SIGNOS VITALES: </b> <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                                <b>SIGNOS VITALES: </b> 
+                                <br />  
+                                <b>FC:</b> {prepare.fc} 
+                                <br />
+                                <b>FR:</b> {prepare.fr} 
+                                <b> <br /> TA:</b> {prepare.ta}
+                                <b> <br /> TC:</b> {prepare.bt}
                             </li>
                             <li className={styles.item}>
-                                <b>ANTROPOMETRÍA: </b> <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                                <b>ANTROPOMETRÍA: </b> 
+                                <br />  
+                                <b>TALLA:</b> {prepare.size} 
+                                <br />
+                                <b>PESO:</b> {prepare.weight}
+                                <b> <br /> IMC:</b> {prepare.mci}
                             </li>
                             <li className={styles.item}>
-                                <b>FLEXIBILIDAD </b>(MMSS) :  <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                                <b>FLEXIBILIDAD </b>(MMSS) :  <br />
+                                <b>PRUEBA:</b> {prepare.testMmss} <br />
+                                <b>DERECHA:</b> {prepare.rhandMmss}
+                                <b> <br /> IZQUIERDA:</b> {prepare.lhandMmss}
                             </li>
                             <li className={styles.item}>
-                                <b>FLEXIBILIDAD </b>(MMII) :  <br />  <b>FC:</b> 32 <br /><b>FR:</b> 20 <b> <br /> TA:</b> 15
+                                <b>FLEXIBILIDAD </b>(MMII) :  <br />  
+                                <b>PRUEBA:</b> {prepare.testMmii} <br />
+                                <b>DERECHA:</b> {prepare.rhandMmii}
+                                <b> <br /> IZQUIERDA:</b> {prepare.lhandMmii}
                             </li>
                         </ul> 
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                <b>DOLOR:</b> Si
+                                <b>DOLOR:</b> {prepare.painBool}
                             </li>
                             <li className={styles.item}>
-                                <b>ESCALA DE DOLOR:</b> 7
+                                <b>ESCALA DE DOLOR:</b> {prepare.painScale}
                             </li>
                             <li className={styles.item}>
-                                <b>EDEMA:</b> Si
+                                <b>EDEMA:</b> {prepare.edema}
                             </li>
                             <li className={styles.item}>
-                                <b>LUGAR:</b> Tobillo
+                                <b>LUGAR:</b> {prepare.place}
                             </li>
                             <li className={styles.item}>
-                                <b>FÓVEA:</b> Si
+                                <b>FÓVEA:</b> {prepare.fovea}
                             </li>
                             <li className={styles.item}>
-                                <b>PERIMETRO:</b> Izquierdo
+                                <b>PERIMETRO:</b> {prepare.perometer}
                             </li>
                         </ul>   
                         <ul className={styles.items}>
                             <li className={styles.item}>
-                                <b>GONIOMETRÍA:</b> Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                <b>GONIOMETRÍA:</b> {prepare.goniometry}
                             </li>
                             <li className={styles.item}>
-                                <b>MARCHA:</b> Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                <b>MARCHA:</b> {prepare.march}
                             </li>
                         </ul>                 
                     </div>
@@ -205,6 +228,7 @@ function mapStateToProps({ patients }) {
         patientList: patients.patientList,
         clinicalHistoryFireBase: patients.clinicalHistoryFireBase,
         therapy: patients.therapy,
+        prepare: patients.prepare,
         userName: patients.userName,
     }
 }

@@ -3,15 +3,21 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { toastMessage } from '../utils/toast';
-import { setPatientList, setUser, setClinicalHistory, cleanClinicalHistory } from '../redux/actions/PatientListActions'
+import { 
+    setPatientList, 
+    setUser, 
+    setClinicalHistory, 
+    clearClinicalHistory,
+    setTherapy,
+    clearTherapy,
+    setPrepare,
+    clearPrepare,
+} from '../redux/actions/PatientListActions'
 import { 
     doc, 
     getDocs, 
     where,
     setDoc, 
-    arrayUnion, 
-    arrayRemove, 
-    updateDoc,  
     collection, 
     query,
     onSnapshot
@@ -74,10 +80,47 @@ const getclinicalHistory = async (id,dispatch) => {
         const q = query(userRef, where("idDoc", "==", id));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.docs.length === 0) {
-            dispatch(cleanClinicalHistory())
+            dispatch(clearClinicalHistory())
         } else {
             querySnapshot.forEach((doc) => {
                 dispatch(setClinicalHistory(doc.data()))
+            });
+        }
+    } catch (error) {
+        console.log('clinic:', error);
+        toastMessage('error', 'Ups, hubo un error, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const getTherapy = async (id,dispatch) => {
+    try {
+        const userRef = collection(db, "therapy");
+        const q = query(userRef, where("idDoc", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.docs.length === 0) {
+            dispatch(clearTherapy())
+        } else {
+            querySnapshot.forEach((doc) => {
+                dispatch(setTherapy(doc.data()))
+            });
+        }
+    } catch (error) {
+        console.log('clinic:', error);
+        toastMessage('error', 'Ups, hubo un error, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const getPrepare = async (id,dispatch) => {
+    console.log(id);
+    try {
+        const userRef = collection(db, "prepare");
+        const q = query(userRef, where("idDoc", "==", id));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.docs.length === 0) {
+            dispatch(clearPrepare())
+        } else {
+            querySnapshot.forEach((doc) => {
+                dispatch(setPrepare(doc.data()))
             });
         }
     } catch (error) {
@@ -135,7 +178,7 @@ const addClinicalHistory = async (patinetHistory,navigate) => {
 const addTherapy = async (patinettherapy,navigate) => {
     console.log('patinettherapy', patinettherapy);
     try {
-        const docRef = await setDoc(doc(db, "clinicalHistory", patinettherapy.idDoc), {
+        const docRef = await setDoc(doc(db, "therapy", patinettherapy.idDoc), {
             inDate: patinettherapy.inDate,
             outDate: patinettherapy.outDate,
             injuryBool: patinettherapy.injuryBool,
@@ -147,9 +190,45 @@ const addTherapy = async (patinettherapy,navigate) => {
             idDoc: patinettherapy.idDoc
         });
         toastMessage('success', 'Datos actualizados correctamente', 'error_adding_favorite')
+        navigate(`/${patinettherapy.idDoc}/PlayerView`)
     } catch (e) {
         console.log(e);
-        toastMessage('error', 'Error al actualizar historia clinica, intente de nuevo.', 'error_adding_favorite')
+        toastMessage('error', 'Error al actualizar datos, intente de nuevo.', 'error_adding_favorite')
+    }
+}
+
+const addPrepare = async (patientPrepare,navigate) => {
+    console.log('patientPrepare',patientPrepare);
+    try {
+        const docRef = await setDoc(doc(db, "prepare", patientPrepare.idDoc), {
+            fc: patientPrepare.fc,
+            fr: patientPrepare.fr,
+            ta: patientPrepare.ta,
+            bt: patientPrepare.bt,
+            size: patientPrepare.size,
+            weight: patientPrepare.weight,
+            mci: patientPrepare.weight,
+            testMmss: patientPrepare.mci,
+            rhandMmss: patientPrepare.rhandMmss,
+            lhandMmss: patientPrepare.lhandMmss,
+            testMmii: patientPrepare.testMmii,
+            rhandMmii: patientPrepare.rhandMmii,
+            lhandMmii: patientPrepare.lhandMmii,
+            painBool: patientPrepare.painBool,
+            painScale: patientPrepare.painScale,
+            place: patientPrepare.painScale,
+            edema: patientPrepare.edema,
+            fovea: patientPrepare.fovea,
+            perometer: patientPrepare.perometer || "NA",
+            goniometry: patientPrepare.goniometry,
+            march: patientPrepare.march,
+            idDoc: patientPrepare.idDoc,
+        });
+        toastMessage('success', 'Datos actualizados correctamente', 'error_adding_favorite')
+        navigate(`/${patientPrepare.idDoc}/PlayerView`)
+    } catch (e) {
+        console.log(e);
+        toastMessage('error', 'Error al actualizar datos, intente de nuevo.', 'error_adding_favorite')
     }
 }
 
@@ -167,28 +246,6 @@ const getPatients = async (dispatch) => {
        console.log(error);
     }
 }
-  
-const updateFavorites = async (id, email) => {
-    const document = doc(db, "fav_users", email);
-    try {
-        await updateDoc(document, {
-        favorites: arrayUnion(id)
-        })
-    } catch (e) {
-        toastMessage('error', 'Upps could not update favorites, please try again!', 'error_updating_favorite')
-    }
-};
-  
-const removeFavorites = async (id, email) => {
-    const document = doc(db, "fav_users", email);
-    try {
-        await updateDoc(document, {
-        favorites: arrayRemove(id)
-        })
-    } catch (e) {
-        toastMessage('error', 'Upps an error has occurred, please try again!', 'error_removing_favorite')
-    }
-};
 
 
 const logOut = () => {
@@ -202,11 +259,12 @@ export {
     signInWithEmailAndPassword,
     getUserName,
     getclinicalHistory,
+    getTherapy,
+    getPrepare,
     addClinicalHistory,
     addTherapy,
+    addPrepare,
     addPatient,
     getPatients,
-    updateFavorites,
-    removeFavorites,
     logOut,
 }

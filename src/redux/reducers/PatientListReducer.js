@@ -1,5 +1,14 @@
 /* eslint default-param-last: off */
-import { GET_PATIENTS, SET_USER, SET_CLINICAL, SET_THERAPY,  CLEAR_CLINICAL } from '../constants'
+import { 
+  GET_PATIENTS, 
+  SET_USER, 
+  SET_CLINICAL, 
+  SET_THERAPY, 
+  CLEAR_CLINICAL,
+  CLEAR_THERAPY,
+  SET_PREPARE,
+  CLEAR_PREPARE,
+ } from '../constants'
 
 const clinicalHistoryInitialState = {
   allergy: "NA",
@@ -29,20 +38,35 @@ const initialStateTherapy = {
   idDoc: "",
 }
 
+const initialStatePrepare = {
+  fc: "",
+  fr: "",
+  ta: "",
+  bt: "",
+  size: "",
+  weight: "",
+  mci: "",
+  testMmss: "",
+  rhandMmss: "",
+  lhandMmss: "",
+  testMmii: "",
+  rhandMmii: "",
+  lhandMmii: "",
+  painBool: "",
+  painScale: "",
+  edema: "",
+  fovea: "",
+  perometer: "",
+  goniometry: "",
+  march: "",
+}
+
 export const initialState = {
   patientList: [],
   userName: {},
   therapy: initialStateTherapy,
-  clinicalHistoryFireBase: clinicalHistoryInitialState
-}
-
-// eslint-disable-next-line arrow-body-style
-
-const removeItem = (state, payload) => {
-  const updateGuestCart = state.savedProductList.filter(
-    (product) => product.id !== payload
-  )
-  return updateGuestCart
+  clinicalHistoryFireBase: clinicalHistoryInitialState,
+  prepare: initialStatePrepare,
 }
 
 const savedListReducer = (state = initialState, action) => {
@@ -76,6 +100,24 @@ const savedListReducer = (state = initialState, action) => {
       return {
         ...state,
         therapy: payload,
+      }
+    }
+    case CLEAR_THERAPY: {
+      return {
+        ...state,
+        therapy: initialStateTherapy
+      }
+    }
+    case SET_PREPARE: {
+      return {
+        ...state,
+        prepare: payload,
+      }
+    }
+    case CLEAR_PREPARE: {
+      return {
+        ...state,
+        prepare: initialStatePrepare
       }
     }
     

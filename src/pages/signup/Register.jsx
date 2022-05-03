@@ -12,7 +12,6 @@ export function Register() {
   const [password, setPassword] = useState("")
   const [profesion, setProfesion] = useState("")
   const [user, loading, error] = useAuthState(auth)
-  console.log(user);
   useEffect(() => {
     if (loading) {
       return
